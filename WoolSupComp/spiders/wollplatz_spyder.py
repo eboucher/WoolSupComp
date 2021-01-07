@@ -10,6 +10,19 @@ wool_balls = {
     'stylecraft':'special-double-knit'
 }
 
+# Selector for class="product-price-currency":
+currency = '//div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnlPDetailBuyHolder"]//div[contains(@class, "buy-price")]//span[@class="product-price"]//span[@class="product-price-currency"]//text()'
+
+# Selector for class="product-price-amount":
+amount = '//div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnlPDetailBuyHolder"]//div[contains(@class, "buy-price")]//span[@class="product-price"]//span[@class="product-price-amount"]//text()'
+
+# Selector for needle size:
+needle = '//div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnShortSpecs"]//div[contains(@class, "innerspecsholder")]//*[@id="pdetailTableSpecs"]//table//tr[td//text()[contains(., "Nadelstärke")]]'
+
+# Selector for Composition:
+composition = '//div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnShortSpecs"]//div[contains(@class, "innerspecsholder")]//*[@id="pdetailTableSpecs"]//table//tr[td//text()[contains(., "Zusammenstellung")]]'
+
+
 class WollplatzSpyder(scrapy.Spider):
     name = 'wollplatz_wool_balls'
 
@@ -29,43 +42,33 @@ class WollplatzSpyder(scrapy.Spider):
         print("\n" + "PAGE = " + str(page) + "\n")
         filename = f'wollplatz-{page}.html'
         with open(filename, 'wb') as f:
-            #f.write(response.body)
-            f.write(type(response.xpath('//div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnlPDetailBuyHolder"]//div[contains(@class, "buy-price")]//span[@class="product-price"]//span[@class="product-price-currency"]//text()').get()))
-            f.write(response.xpath('//div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnlPDetailBuyHolder"]//div[contains(@class, "buy-price")]//span[@class="product-price"]//span[@class="product-price-amount"]//text()').get())
-            f.write(response.xpath('//div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnShortSpecs"]//div[contains(@class, "innerspecsholder")]//*[@id="pdetailTableSpecs"]//table//tbody//tr[td//text()[contains(., "Nadelstärke")]]').get())
-            f.write(response.xpath('//div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnShortSpecs"]//div[contains(@class, "innerspecsholder")]//*[@id="pdetailTableSpecs"]//table//tbody//tr[td//text()[contains(., "Zusammenstellung")]]').get())
+            # f.write(response.body)
+            result = response.xpath(currency).get()
+            f.write(result.encode('utf-8'))
+            result = response.xpath(amount).get()
+            f.write(result.encode('utf-8'))
+            result = response.xpath(needle).get()
+            f.write(result.encode('utf-8'))
+            result = response.xpath(composition).get()
+            f.write(result.encode('utf-8'))
         self.log(f'Saved file {filename}')
 
-        print('\nProduct price currency = ' + response.xpath('//div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnlPDetailBuyHolder"]//div[contains(@class, "buy-price")]//span[@class="product-price"]//span[@class="product-price-currency"]//text()').get())
+        print('\nProduct price currency = ' + response.xpath(currency).get())
         print("\n")
-        print('\nProduct price amount = ' + response.xpath('//div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnlPDetailBuyHolder"]//div[contains(@class, "buy-price")]//span[@class="product-price"]//span[@class="product-price-amount"]//text()').get())
+        print('\nProduct price amount = ' + response.xpath(amount).get())
         print("\n")
-        print('\nNeedle size = ' + str(response.xpath('//div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnShortSpecs"]//div[contains(@class, "innerspecsholder")]//*[@id="pdetailTableSpecs"]//table//tbody//tr[td//text()[contains(., "Nadelstärke")]]').get()))
+        print('\nNeedle size = ' + response.xpath(needle).get())
         print("\n")
-        print('\nComposition = ' + response.xpath('//div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnShortSpecs"]//div[contains(@class, "innerspecsholder")]//*[@id="pdetailTableSpecs"]//table//tbody//tr[td//text()[contains(., "Zusammenstellung")]]').get())
+        print('\nComposition = ' + response.xpath(composition).get())
         print("\n")
 
         yield {
-            'Product price currency': response.xpath('//div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnlPDetailBuyHolder"]//div[contains(@class, "buy-price")]//span[@class="product-price"]//span[@class="product-price-currency"]').get(),
-            'Product price amount': response.xpath('//div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnlPDetailBuyHolder"]//div[contains(@class, "buy-price")]//span[@class="product-price"]//span[@class="product-price-amount"]').get(),
-            'Needle size': response.xpath('//div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnShortSpecs"]//div[contains(@class, "innerspecsholder")]//*[@id="pdetailTableSpecs"]//table//tbody//tr[td//text()[contains(., "Nadelstärke")]]').get(),
-            'Composition': response.xpath('//div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnShortSpecs"]//div[contains(@class, "innerspecsholder")]//*[@id="pdetailTableSpecs"]//table//tbody//tr[td//text()[contains(., "Zusammenstellung")]]').get(),
+            'Product price currency': response.xpath(currency).get(),
+            'Product price amount': response.xpath().get(),
+            'Needle size': response.xpath(needle).get(),
+            'Composition': response.xpath(composition).get(),
         }
 
-
-
-# Selector for class="product-price-currency":
-# //div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnlPDetailBuyHolder"]//div[contains(@class, "buy-price")]//span[@class="product-price"]//span[@class="product-price-currency"]
-
-# Selector for class="product-price-amount":
-# //div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnlPDetailBuyHolder"]//div[contains(@class, "buy-price")]//span[@class="product-price"]//span[@class="product-price-amount"]
-
-
-# Selector for needle size
-# //div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnShortSpecs"]//div[contains(@class, "innerspecsholder")]//*[@id="pdetailTableSpecs"]//table//tbody//tr[td//text()[contains(., "Nadelstärke")]]
-
-# Selector for Composition
-# //div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnShortSpecs"]//div[contains(@class, "innerspecsholder")]//*[@id="pdetailTableSpecs"]//table//tbody//tr[td//text()[contains(., "Zusammenstellung")]]
 
 # Selector for delivery time
 # (information not found in website, except for "Between 3 to 5 work days" by default for all products)
