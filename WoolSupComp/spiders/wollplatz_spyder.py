@@ -11,16 +11,16 @@ wool_balls = {
 }
 
 # Selector for class="product-price-currency":
-currency = '//div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnlPDetailBuyHolder"]//div[contains(@class, "buy-price")]//span[@class="product-price"]//span[@class="product-price-currency"]//text()'
+product_price_currency = '//div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnlPDetailBuyHolder"]//div[contains(@class, "buy-price")]//span[@class="product-price"]//span[@class="product-price-currency"]//text()'
 
 # Selector for class="product-price-amount":
-amount = '//div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnlPDetailBuyHolder"]//div[contains(@class, "buy-price")]//span[@class="product-price"]//span[@class="product-price-amount"]//text()'
+product_price_amount = '//div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnlPDetailBuyHolder"]//div[contains(@class, "buy-price")]//span[@class="product-price"]//span[@class="product-price-amount"]//text()'
 
 # Selector for needle size:
-needle = '//div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnShortSpecs"]//div[contains(@class, "innerspecsholder")]//*[@id="pdetailTableSpecs"]//table//tr[td//text()[contains(., "Nadelstärke")]]'
+needle_size = '//div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnShortSpecs"]//div[contains(@class, "innerspecsholder")]//*[@id="pdetailTableSpecs"]//table//tr[td//text()[contains(., "Nadelstärke")]]//td[2]//text()'
 
 # Selector for Composition:
-composition = '//div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnShortSpecs"]//div[contains(@class, "innerspecsholder")]//*[@id="pdetailTableSpecs"]//table//tr[td//text()[contains(., "Zusammenstellung")]]'
+wool_composition = '//div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnShortSpecs"]//div[contains(@class, "innerspecsholder")]//*[@id="pdetailTableSpecs"]//table//tr[td//text()[contains(., "Zusammenstellung")]]//td[2]//text()'
 
 
 class WollplatzSpyder(scrapy.Spider):
@@ -30,7 +30,6 @@ class WollplatzSpyder(scrapy.Spider):
         urls = []
 
         for key, value in wool_balls.items():
-            print(Wollplatz_base_url + 'wolle/' + key + '/' + key + '-' + value)
             urls.append(Wollplatz_base_url + 'wolle/' + key + '/' + key + '-' + value)
 
         for url in urls:
@@ -39,34 +38,23 @@ class WollplatzSpyder(scrapy.Spider):
 
     def parse(self, response):
         page = response.url.split("/")[-1]
-        print("\n" + "PAGE = " + str(page) + "\n")
         filename = f'wollplatz-{page}.html'
         with open(filename, 'wb') as f:
-            # f.write(response.body)
-            result = response.xpath(currency).get()
+            result = response.xpath(product_price_currency).get()
             f.write(result.encode('utf-8'))
-            result = response.xpath(amount).get()
+            result = response.xpath(product_price_amount).get()
             f.write(result.encode('utf-8'))
-            result = response.xpath(needle).get()
+            result = response.xpath(needle_size).get()
             f.write(result.encode('utf-8'))
-            result = response.xpath(composition).get()
+            result = response.xpath(wool_composition).get()
             f.write(result.encode('utf-8'))
         self.log(f'Saved file {filename}')
 
-        print('\nProduct price currency = ' + response.xpath(currency).get())
-        print("\n")
-        print('\nProduct price amount = ' + response.xpath(amount).get())
-        print("\n")
-        print('\nNeedle size = ' + response.xpath(needle).get())
-        print("\n")
-        print('\nComposition = ' + response.xpath(composition).get())
-        print("\n")
-
         yield {
-            'Product price currency': response.xpath(currency).get(),
-            'Product price amount': response.xpath().get(),
-            'Needle size': response.xpath(needle).get(),
-            'Composition': response.xpath(composition).get(),
+            'Product price currency': response.xpath(product_price_currency).get(),
+            'Product price amount': response.xpath(product_price_amount).get(),
+            'Needle size': response.xpath(needle_size).get(),
+            'Composition': response.xpath(wool_composition).get(),
         }
 
 
