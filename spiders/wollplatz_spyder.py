@@ -51,13 +51,12 @@ class WollplatzSpyder(scrapy.Spider):
             'Nadelstärke': needle_size, 
             'Zusammenstellung': wool_composition
         }
-        
+
         # Add current item value to global dataframe of items
         self.result_df = self.result_df.append(df1, ignore_index = True)
 
         # Export dataframe of items to CSV file
-        filename = OUTPUT_FILE
-        self.result_df.to_csv(filename)
+        self.result_df.to_csv(os.getcwd() + OUTPUT_PATH + OUTPUT_FILE)
 
         yield {
             'Marke': brand, 
