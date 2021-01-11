@@ -2,9 +2,10 @@
 WOLLPLATZ_BASE_URL = "https://www.wollplatz.de/"
 
 INPUT_FILE = '/input/wollplatz/Wollplatz_produkte.xlsx'
+OUTPUT_FILE = 'Wollplatz_ergebnis.csv'
+OUTPUT_PATH = '/output/wollplatz/'
 
 ####  SELECTORS  ####
-
 # Selector for Product price currency:
 PRODUCT_PRICE_CURRENCY_SELECTOR = '//div[contains(@class, "shopholder")]//*[@id="ContentPlaceHolder1_pnlPDetailBuyHolder"]//div[contains(@class, "buy-price")]//span[@class="product-price"]//span[@class="product-price-currency"]//text()'
 # Selector for Product price amount:
