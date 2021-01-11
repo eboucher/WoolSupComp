@@ -1,6 +1,5 @@
 import scrapy
 import pandas as pd
-import openpyxl
 import os
 
 from constants.wollplatz import *

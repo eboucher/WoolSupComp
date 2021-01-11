@@ -14,17 +14,9 @@ Once you activate it, you need to install Scrapy. You can do this with the follo
 
 > pip install scrapy
 
-I also use the pandas library by using the command:
+And finally, download the Pandas library to for data analysis and manipulation:
 
 > pip install pandas
-
-And finally, a Python library to read/write Excel xlsx/xlsm files, openpyxl:
-
-> pip install openpyxl
-
-Well, also xlrd...
-
-> pip install xlrd
 
 Now, you're all set. To execute a spider, run the command:
 
