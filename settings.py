@@ -9,8 +9,8 @@
 
 BOT_NAME = 'WoolSupComp'
 
-SPIDER_MODULES = ['WoolSupComp.spiders']
-NEWSPIDER_MODULE = 'WoolSupComp.spiders'
+SPIDER_MODULES = ['spiders']
+NEWSPIDER_MODULE = 'spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent

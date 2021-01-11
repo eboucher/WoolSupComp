@@ -18,6 +18,14 @@ I also use the pandas library by using the command:
 
 > pip install pandas
 
+And finally, a Python library to read/write Excel xlsx/xlsm files, openpyxl:
+
+> pip install openpyxl
+
+Well, also xlrd...
+
+> pip install xlrd
+
 Now, you're all set. To execute a spider, run the command:
 
 > scrapy crawl [spider_name]
