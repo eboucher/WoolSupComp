@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MDBBootstrapModule } from 'angular-bootstrap-md'; 
 
 import { Router } from '@angular/router';
 
@@ -19,6 +20,7 @@ import { Router } from '@angular/router';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MDBBootstrapModule.forRoot() 
   ],
   providers: [],
   bootstrap: [AppComponent]
