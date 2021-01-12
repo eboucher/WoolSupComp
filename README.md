@@ -26,3 +26,26 @@ In this project, there is only one spider for the Wollplatz website. So you run 
 
 > scrapy crawl wollplatz_wool_balls
 
+(1) Activate the virtual environment:
+
+> source [env_name]/bin/activate
+
+
+(2) In the /api directory, run 
+
+> export FLASK_APP=server.py
+
+to tell the terminal the application to work with by exporting the FLASK_APP environment variable. Then, execute:
+
+> python -m flask run
+
+To serve te declarated server in a production environment. It should display: Running on http://127.0.0.1:5000/
+
+
+(3) Once the server is up and running, launch the web application by running:
+
+> ng serve
+
+in another terminal tab in the directory /webpage. It should display the following:
+
+** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **
