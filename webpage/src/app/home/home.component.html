@@ -1,0 +1,59 @@
+<!--Main layout-->
+<main class="mt-5 pt-5">
+  <div class="container">
+
+    <!-- Section heading -->
+    <h3 class="text-center font-weight-bold mb-5">woolballs</h3>
+
+    <hr class="my-5">
+
+    <!--Section: Cards-->
+    <section class="text-center">
+
+      <!--Grid row-->
+      <div class="row mb-4 wow fadeIn justify-content-md-center" *ngFor="let woolball of woolballs$; let i = index">
+
+        <!--Card-->
+        <div class="card col-12">
+
+          <!--Card content-->
+          <div class="card-body">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-6">
+              <div class="col">
+                <h4>woolball no. {{ i + 1 }}</h4>
+              </div>
+              <div class="col">
+                <div class="row justify-content-md-center">Brand</div>
+                <div class="row justify-content-md-center">{{ woolball.brand }}</div>
+              </div>
+              <div class="col">
+                <div class="row justify-content-md-center">Designation</div>
+                <div class="row justify-content-md-center">{{ woolball.designation }}</div>
+              </div>
+              <div class="col">
+                <div class="row justify-content-md-center">Price</div>
+                <div class="row justify-content-md-center">{{ woolball.price }} {{ woolball.currency }}</div>
+              </div>
+              <div class="col">
+                <div class="row justify-content-md-center">Needle size</div>
+                <div class="row justify-content-md-center">{{ woolball.needle_size }} </div>
+              </div>
+              <div class="col">
+                <div class="row justify-content-md-center">Wool composition</div>
+                <div class="row justify-content-md-center">{{ woolball.wool_composition }}</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!--/.Card-->
+
+      </div>
+      <!--Grid row-->
+
+    </section>
+    <!--Section: Cards-->
+
+  </div>
+</main>
+<!--Main layout-->
